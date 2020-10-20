@@ -1,0 +1,1 @@
+covid data api = https://api.covidtracking.com/v1/states/current.json
