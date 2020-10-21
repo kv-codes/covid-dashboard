@@ -1,26 +1,20 @@
-const button = document.getElementById('test')
-
-
-button.addEventListener('click', () => {
-    fetch('https://www.trackcorona.live/api/cities')
+const renderDropdown = () => {
+    fetch('https://www.trackcorona.live/api/provinces')
         .then(response => response.json())
         .then(jsonData => {
-            jsonData.data.forEach(function (item) {
-                if (item.country_code == 'us') {
-                    console.log(item.location)
+            let stateArray = []
+            jsonData.data.forEach(function (state) {
+                if (state.country_code === 'us') {
+                    stateArray.push(state.location)
+                    let statesDropdown = document.querySelector('#states')
+                    let newOption = document.createElement('option')
+                    newOption.setAttribute('value', state.location)
+                    newOption.innerHTML = state.location
+                    statesDropdown.appendChild(newOption)
                 }
             })
         })
-})
-
-const grabLocationId = () => {
 
 }
 
-const renderStats = () => {
-    fetch('https://www.trackcorona.live/api/cities')
-        .then(response => response.json())
-        .then(jsonData => {
-            console.log(jsonData.data[0])
-        })
-}
+renderDropdown()
