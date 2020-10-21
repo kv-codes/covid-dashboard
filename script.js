@@ -1,23 +1,26 @@
 const button = document.getElementById('test')
 
-async function getData() {
-    const response = await fetch('https://api.covidtracking.com/v1/states/current.json')
-    const data = await response.json()
-    return data
-}
-
-
 
 button.addEventListener('click', () => {
-
-
-    getData()
-        .then(data => {
-
-            data.forEach((state) => {
-                console.log(state.positive + ' ' + state.state)
+    fetch('https://www.trackcorona.live/api/cities')
+        .then(response => response.json())
+        .then(jsonData => {
+            jsonData.data.forEach(function (item) {
+                if (item.country_code == 'us') {
+                    console.log(item.location)
+                }
             })
-
         })
-
 })
+
+const grabLocationId = () => {
+
+}
+
+const renderStats = () => {
+    fetch('https://www.trackcorona.live/api/cities')
+        .then(response => response.json())
+        .then(jsonData => {
+            console.log(jsonData.data[0])
+        })
+}

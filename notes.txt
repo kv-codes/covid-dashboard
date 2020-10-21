@@ -1,2 +1,7 @@
 covid data api = https://api.covidtracking.com/v1/states/current.json
 Styling starts here
+
+
+
+user selects state 
+api call finds long lat - sets value to center, displays that state 
