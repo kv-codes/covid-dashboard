@@ -1,23 +1,18 @@
-const button = document.getElementById('test')
-
-async function getData() {
-    const response = await fetch('https://api.covidtracking.com/v1/states/current.json')
-    const data = await response.json()
-    return data
-}
-
-
-
-button.addEventListener('click', () => {
-
-
-    getData()
-        .then(data => {
-
-            data.forEach((state) => {
-                console.log(state.positive + ' ' + state.state)
+const renderDropdown = () => {
+    fetch('https://www.trackcorona.live/api/provinces')
+        .then(response => response.json())
+        .then(jsonData => {
+            jsonData.data.forEach(function (state) {
+                if (state.country_code === 'us') {
+                    let statesDropdown = document.querySelector('#states')
+                    let newOption = document.createElement('option')
+                    newOption.setAttribute('value', state.location)
+                    newOption.innerHTML = state.location
+                    statesDropdown.appendChild(newOption)
+                }
             })
-
         })
 
-})
+}
+
+renderDropdown()

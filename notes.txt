@@ -1,2 +1,8 @@
 covid data api = https://api.covidtracking.com/v1/states/current.json
 Styling starts here
+
+
+
+user selects state from a drop down 
+api call finds long lat - sets value to center, displays that state heat map 
+data form shows confirmed, dead, location name, and last time updated 
