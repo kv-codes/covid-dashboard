@@ -6,3 +6,5 @@ Styling starts here
 user selects state from a drop down 
 api call finds long lat - sets value to center, displays that state heat map 
 data form shows confirmed, dead, location name, and last time updated 
+
+https://maps.googleapis.com/maps/api/js?key=AIzaSyAPAbatmB7sDJduradIXtT4hER0L-5wbxE&callback=initMap&libraries=visualization&v=weekly
