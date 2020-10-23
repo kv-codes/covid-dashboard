@@ -1,3 +1,5 @@
+// renders the drop down options for states
+
 const renderDropdown = () => {
     fetch('https://www.trackcorona.live/api/provinces')
         .then(response => response.json())
@@ -16,7 +18,7 @@ const renderDropdown = () => {
 }
 
 renderDropdown()
-
+// renders the stats 
 document.querySelector('#states').addEventListener('change', (event) => {
 
     //console.log(event.target.value)
@@ -27,6 +29,8 @@ document.querySelector('#states').addEventListener('change', (event) => {
                 if (state.location === event.target.value) {
                     console.log(state)
                     let statsDiv = document.querySelector('#stats')
+                    console.log(state.latitude)
+                    initMap(state.latitude, state.longitude)
                     statsDiv.innerHTML = `
                     Confirmed cases: ${state.confirmed}
                     Deceased: ${state.dead}
@@ -40,17 +44,17 @@ document.querySelector('#states').addEventListener('change', (event) => {
 
 
 
-// This example requires the Visualization library. Include the libraries=visualization
-// parameter when you first load the API. For example:
-// <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=visualization">
+// this is the heat map
+
 let map, heatmap;
 
-function initMap() {
+function initMap(lat = 37.782, long = -122.447) {
     map = new google.maps.Map(document.getElementById("map"), {
-        zoom: 13,
+        zoomControl: false,
+        zoom: 9,
         center: {
-            lat: 37.775,
-            lng: -122.434
+            lat: lat,
+            lng: long
         },
         mapTypeId: "satellite",
     });
@@ -58,6 +62,7 @@ function initMap() {
         data: getPoints(),
         map: map,
     });
+    console.log(map.center)
 }
 
 function toggleHeatmap() {
@@ -93,9 +98,14 @@ function changeOpacity() {
 }
 
 // Heatmap data: 500 Points
-function getPoints() {
-    return [
-        //new google.maps.LatLng(37.782551, -122.445368),
+function getPoints(lat, long) {
+    fetch('https://www.trackcorona.live/api/cities')
+
+
+    return [{
+            location: new google.maps.LatLng(37.782, -122.447),
+            weight: 50
+        }
 
     ];
 }
