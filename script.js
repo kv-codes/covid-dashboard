@@ -21,22 +21,21 @@ renderDropdown()
 // renders the stats 
 document.querySelector('#states').addEventListener('change', (event) => {
 
-    //console.log(event.target.value)
     fetch('https://www.trackcorona.live/api/provinces')
         .then(response => response.json())
         .then(jsonData => {
             jsonData.data.forEach(function (state) {
                 if (state.location === event.target.value) {
-                    console.log(state)
-                    let statsDiv = document.querySelector('#stats')
-                    console.log(state.latitude)
                     initMap(state.latitude, state.longitude)
+                    let statsDiv = document.querySelector('#stats')
                     statsDiv.innerHTML = `
                     Confirmed cases: ${state.confirmed}
                     Deceased: ${state.dead}
                     Recovered: ${state.recovered}
                     Last Updated: ${state.updated}
                     `
+
+                    console.log(state)
                 }
             })
         })
@@ -50,7 +49,6 @@ let map, heatmap;
 
 function initMap(lat = 37.782, long = -122.447) {
     map = new google.maps.Map(document.getElementById("map"), {
-        zoomControl: false,
         zoom: 9,
         center: {
             lat: lat,
@@ -62,7 +60,7 @@ function initMap(lat = 37.782, long = -122.447) {
         data: getPoints(),
         map: map,
     });
-    console.log(map.center)
+
 }
 
 function toggleHeatmap() {
@@ -98,14 +96,32 @@ function changeOpacity() {
 }
 
 // Heatmap data: 500 Points
-function getPoints(lat, long) {
-    fetch('https://www.trackcorona.live/api/cities')
+function getPoints(arr) {
+    //new google.maps.LatLng(37.782, -122.447)
 
 
-    return [{
-            location: new google.maps.LatLng(37.782, -122.447),
-            weight: 50
-        }
-
-    ];
+    return [];
 }
+
+let test = () => {
+    fetch('https://www.trackcorona.live/api/cities')
+        .then(response => response.json())
+        .then(jsonData => {
+            return jsonData.data.filter((item) => item.country_code === 'us')
+        })
+        .then(filteredArr => {
+            filteredArr.map((i) => new google.maps.LatLng(i.latitude, i.longitude))
+        })
+        .then(mappedArr => getPoints(mappedArr))
+
+
+}
+
+test()
+
+
+
+// new google.maps.LatLng(37.782, -122.447)
+
+
+// new google.maps.LatLng(43.8041334, -120.5542012)
