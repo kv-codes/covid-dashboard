@@ -13,6 +13,7 @@ const renderDropdown = () => {
                     statesDropdown.appendChild(newOption)
                 }
             })
+
         })
 
 }
@@ -25,12 +26,15 @@ document.querySelector('#states').addEventListener('change', (event) => {
     fetch('https://www.trackcorona.live/api/provinces')
         .then(response => response.json())
         .then(jsonData => {
+
             jsonData.data.forEach(function (state) {
                 if (state.location === event.target.value) {
-                    console.log(state)
+
                     let statsDiv = document.querySelector('#stats')
-                    console.log(state.latitude)
+
                     initMap(state.latitude, state.longitude)
+                    getPoints()
+
                     statsDiv.innerHTML = `
                     Confirmed cases: ${state.confirmed}
                     Deceased: ${state.dead}
@@ -48,26 +52,38 @@ document.querySelector('#states').addEventListener('change', (event) => {
 
 let map, heatmap;
 
-function initMap(lat = 37.782, long = -122.447) {
+
+function initMap(lat = 37.0902, long = -95.7129, zoom = 4) {
     map = new google.maps.Map(document.getElementById("map"), {
-        zoomControl: false,
-        zoom: 9,
+        zoomControl: true,
+        zoom: zoom,
         center: {
             lat: lat,
             lng: long
         },
+
         mapTypeId: "satellite",
     });
+
     heatmap = new google.maps.visualization.HeatmapLayer({
         data: getPoints(),
         map: map,
     });
-    console.log(map.center)
+
+    heatmap.setMap(map)
+
+
+
+
+
 }
 
 function toggleHeatmap() {
-    heatmap.setMap(heatmap.getMap() ? null : map);
+    heatmap.setMap(heatmap.getMap() ? map : map);
 }
+
+
+
 
 function changeGradient() {
     const gradient = [
@@ -97,15 +113,24 @@ function changeOpacity() {
     heatmap.set("opacity", heatmap.get("opacity") ? null : 0.2);
 }
 
-// Heatmap data: 500 Points
-function getPoints(lat, long) {
-    fetch('https://www.trackcorona.live/api/cities')
 
 
-    return [{
-            location: new google.maps.LatLng(37.782, -122.447),
-            weight: 50
-        }
 
-    ];
+function getPoints() {
+    console.log(map)
+    let emptyArray = []
+    fetch("https://www.trackcorona.live/api/cities")
+        .then(response => response.json())
+        .then(data => data.data)
+        .then(dataObject => dataObject.filter(data => data.country_code == "us"))
+        .then(filtered => filtered.forEach(element => {
+            emptyArray.push({
+                location: new google.maps.LatLng(element.latitude, element.longitude),
+                weight: element.confirmed / 1000
+            })
+
+        }))
+
+    return emptyArray
+
 }
