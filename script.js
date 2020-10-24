@@ -27,9 +27,9 @@ document.querySelector('#states').addEventListener('change', (event) => {
         .then(jsonData => {
             jsonData.data.forEach(function (state) {
                 if (state.location === event.target.value) {
-                    console.log(state)
+
                     let statsDiv = document.querySelector('#stats')
-                    console.log(state.latitude)
+
                     initMap(state.latitude, state.longitude)
                     statsDiv.innerHTML = `
                     Confirmed cases: ${state.confirmed}
@@ -50,7 +50,7 @@ let map, heatmap;
 
 function initMap(lat = 37.782, long = -122.447) {
     map = new google.maps.Map(document.getElementById("map"), {
-        zoomControl: false,
+        zoomControl: true,
         zoom: 9,
         center: {
             lat: lat,
@@ -62,7 +62,7 @@ function initMap(lat = 37.782, long = -122.447) {
         data: getPoints(),
         map: map,
     });
-    console.log(map.center)
+
 }
 
 function toggleHeatmap() {
@@ -98,14 +98,44 @@ function changeOpacity() {
 }
 
 // Heatmap data: 500 Points
-function getPoints(lat, long) {
-    fetch('https://www.trackcorona.live/api/cities')
+function getPoints(arrayOfStates) {
+
+    let emptyArray = [];
+    // console.log(arrayOfStates);
 
 
-    return [{
-            location: new google.maps.LatLng(37.782, -122.447),
-            weight: 50
-        }
+    arrayOfStates.forEach(element => {emptyArray.push({
+        location: new google.maps.LatLng(element.latitude,
+        element.longitude),
+        weight: element.confirmed
+    })});
 
-    ];
+    console.log(arrayOfStates);
+
+    console.log(emptyArray);
+    
+    return emptyArray; 
+
+
+
 }
+
+function getCityData(){
+
+    fetch("https://www.trackcorona.live/api/cities")
+    .then(response => response.json())
+    .then(dataObject => {
+        const result = dataObject.data.filter(data => data.country_code == "us");
+   //Logging array of US cities
+        // console.log(result);
+        getPoints(result);
+        initMap();
+
+    })
+
+}
+
+getCityData();
+
+
+
