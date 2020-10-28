@@ -18,6 +18,8 @@ const renderDropdown = () => {
 
 }
 
+
+
 renderDropdown()
 // renders the stats 
 document.querySelector('#states').addEventListener('change', (event) => {
@@ -28,23 +30,45 @@ document.querySelector('#states').addEventListener('change', (event) => {
         .then(jsonData => {
 
             jsonData.data.forEach(function (state) {
+
                 if (state.location === event.target.value) {
-
                     let statsDiv = document.querySelector('#stats')
-
-                    initMap(state.latitude, state.longitude)
-                    getPoints()
-
+                    initMap(state.latitude, state.longitude, 6)
                     statsDiv.innerHTML = `
                     Confirmed cases: ${state.confirmed}
                     Deceased: ${state.dead}
-                    Recovered: ${state.recovered}
                     Last Updated: ${state.updated}
                     `
                 }
+
             })
         })
 })
+
+let globalData = () => {
+    fetch('https://www.trackcorona.live/api/countries')
+        .then(response => response.json())
+        .then(jsonData => {
+            jsonData.data.forEach((country) => {
+                if (country.country_code === 'us') {
+                    let globalDiv = document.querySelector('#global-stats')
+                    globalDiv.innerHTML = `
+                        Total US Confirmed: ${country.confirmed}
+                        Total US Recovered: ${country.recovered}
+                        Total US diseased: ${country.dead}
+                
+                    `
+
+                }
+            })
+        })
+
+}
+globalData()
+
+
+
+
 
 
 
@@ -117,7 +141,6 @@ function changeOpacity() {
 
 
 function getPoints() {
-    console.log(map)
     let emptyArray = []
     fetch("https://www.trackcorona.live/api/cities")
         .then(response => response.json())
