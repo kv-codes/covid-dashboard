@@ -37,7 +37,7 @@ document.querySelector('#states').addEventListener('change', (event) => {
                     statsDiv.innerHTML = `
                     Confirmed cases: ${state.confirmed}
                     Deceased: ${state.dead}
-                    Last Updated: ${state.updated}
+                    Last Updated: ${state.updated.split(' ')[0]}
                     `
                 }
 
@@ -80,6 +80,7 @@ let map, heatmap;
 function initMap(lat = 37.0902, long = -95.7129, zoom = 4) {
     map = new google.maps.Map(document.getElementById("map"), {
         zoomControl: true,
+
         zoom: zoom,
         center: {
             lat: lat,
@@ -103,7 +104,7 @@ function initMap(lat = 37.0902, long = -95.7129, zoom = 4) {
 }
 
 function toggleHeatmap() {
-    heatmap.setMap(heatmap.getMap() ? map : map);
+    heatmap.setMap(heatmap.getMap() ? null : map);
 }
 
 
