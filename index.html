@@ -6,11 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
     <link rel="shortcut icon" href="#">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <script
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAPAbatmB7sDJduradIXtT4hER0L-5wbxE&callback=initMap&libraries=visualization&v=weekly"
         defer></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
     <link rel="stylesheet" href="style.css">
 
 
@@ -18,51 +23,85 @@
 
 <body>
     <div class="container">
-        <div class="top">
-            <div class="title">
-                <h1>Welcome to the US Covid-19 Info Page!</h1>
+        <div class="Page Title">
+            <h1>Welcome to the Covid Tracker!</h1>
+            <br>
+            <p>Thank you for visiting our Covid Tracker site, the place where we provide you with the most recent COVID information worldwide! How to use the Covid Tracker? It's simple, just follow the 3 easy steps under "Instructions" to start and there you go! We hope you'll have a wonderful experience with our Covid Tracker, enjoy!</p>
+        </div>    
+
+        <div class="row">
+            <div class = "column-12 project">
+
+                <div class = "project container">
+
+                    <div class="card-group">
+                        
+                        <div class="card">
+                            <h5 class = "card-title">Instructions:</h5>
+
+                          <div class="card-body">
+                              <p>1. To start, select a state under "Get Heat Map!" Once a state is selected, a terrain view of that state will display on the map below.</p>
+                              <p>2. Then press <u>Toggle Map</u> to get a heat map view of all areas affected by COVID on your selected state. You can also change the display of your heat map. </p>
+                              <p>3. View your results! The stat results will display on the right under "Stat results".</p>
+                              
+
+                          </div>
+
+                        </div>
+                        <div class="card">
+                            <h5 class = "card-title">Get Heat Map!</h5>
+
+                          <div class="card-body">
+
+                            <div class="selectState button">
+                                <form>
+                                    <label for="state">Choose a state:</label>
+                                    <select name="states" id="states">
+                                        <option selected="selected">Select a state</option>
+                                    </select>
+                                </form>
+                                <div id="stats"></div>
+                
+                                <div id = "global-stats"></div>
+                
+                            </div>
+
+                            <br>
+                            <div id="map"></div>
+                            <br>
+                            <div id="floating-panel">
+                                <button onclick="toggleHeatmap()">Toggle Heatmap</button>
+                                <button onclick="changeGradient()">Change gradient</button>
+                                <button onclick="changeRadius()">Change radius</button>
+                                <button onclick="changeOpacity()">Change opacity</button>
+                            </div>
+
+                          </div>
+
+                        </div>
+                        <div class="card">
+                            <h5 class = "card-title">Stat Results:</h5>
+
+                          <div class="card-body">
+
+                          </div>
+
+                        </div>
+                      </div>
+
+                </div>
+
             </div>
-            <div class="top-nav">
-                <form>
-                    <label for="state">Choose a state:</label>
-                    <select name="states" id="states">
-                        <option selected="selected">Select a state</option>
-                    </select>
-                </form>
-                <div id="stats"></div>
-            </div>
-        </div>
-        <div id="floating-panel">
-            <button onclick="toggleHeatmap()">Toggle Heatmap</button>
-            <button onclick="changeGradient()">Change gradient</button>
-            <button onclick="changeRadius()">Change radius</button>
-            <button onclick="changeOpacity()">Change opacity</button>
-        </div>
-        <div id="map"></div>
-
-
-
-
-
-
-
-        <div class="bottom">
-            <div class="directions">
-                <p>How to use:</p>
-
-
-
-            </div>
-
-
-
 
         </div>
-
 
 
     </div>
     <script src="script.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 
 </html>
