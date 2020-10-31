@@ -55,7 +55,7 @@ let globalData = () => {
                     globalDiv.innerHTML = `
                         Total US Confirmed: ${country.confirmed}
                         Total US Recovered: ${country.recovered}
-                        Total US diseased: ${country.dead}
+                        Total US deceased: ${country.dead}
                 
                     `
 
