@@ -32,8 +32,10 @@ document.querySelector('#states').addEventListener('change', (event) => {
             jsonData.data.forEach(function (state) {
 
                 if (state.location === event.target.value) {
+
                     let statsDiv = document.querySelector('#stats')
                     initMap(state.latitude, state.longitude, 6)
+
                     statsDiv.innerHTML = `
                     Confirmed cases: ${state.confirmed}
                     Deceased: ${state.dead}
@@ -81,7 +83,9 @@ function initMap(lat = 37.0902, long = -95.7129, zoom = 4) {
     map = new google.maps.Map(document.getElementById("map"), {
         zoomControl: true,
 
+
         zoom: zoom,
+
         center: {
             lat: lat,
             lng: long
@@ -94,11 +98,6 @@ function initMap(lat = 37.0902, long = -95.7129, zoom = 4) {
         data: getPoints(),
         map: map,
     });
-
-    heatmap.setMap(map)
-
-
-
 
 
 }
@@ -141,6 +140,7 @@ function changeOpacity() {
 
 
 
+
 function getPoints() {
     let emptyArray = []
     fetch("https://www.trackcorona.live/api/cities")
@@ -158,3 +158,4 @@ function getPoints() {
     return emptyArray
 
 }
+
