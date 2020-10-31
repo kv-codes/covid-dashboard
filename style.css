@@ -4,8 +4,7 @@
 
 
 #map {
-    height: 100vh;
-    width: 75%;
+    height: 50vh;
 }
 
 /* Optional: Makes the sample page fill the window. */
@@ -19,7 +18,7 @@ body {
 #floating-panel {
     position: relative;
     top: 10px;
-    left: 25%;
+
     z-index: 5;
     background-color: #fff;
     padding: 5px;
