@@ -13,24 +13,28 @@
 </head>
 <body>
     <div class = "container">
-        <div class = "row">
-            <div class = "Page Title">
-                <h1>Welcome to the Covid Tracker!</h1>
-                <b></b>
-                <p>Thank you for visiting our Covid Tracker site, the place where we provide you with the most recent COVID information worldwide! How to use the Covid Tracker? It's simple, just follow the 3 easy steps under "Instructions" and you're all set to go! We hope you'll have a wonderful experience with our Covid Tracker, enjoy!</p>
-            </div>
+
+        <div class = "logo">
+                <img src = "logo.png"/>
+        </div>
+            
+        <div class = "Introduction">
+                <p>Welcome and thank you for using our Covid Dashboard, the place where we provide you with the latest COVID information worldwide! How to use the Covid Dashboard? It's really simple, just follow the 3 easy steps under "Instructions" and you're all set to go! We hope you'll have a wonderful experience with our Covid Dashboard, enjoy!</p>
+            
 
         </div>
+
+        <br>
 
         <div class = "row">
             <div class = "col-4">
                 <div class="card">
-                    <h5 class = "card-title">Instructions:</h5>
+                    <h4 class = "card-title"> <b><u>Instructions:</u></b></h4>
 
                   <div class="card-body">
-                      <p>1. To start, select a state under "Get Heat Map!" Once a state is selected, a terrain view of that state will display on the map below.</p>
-                      <p>2. Then press <u>Toggle Map</u> to get a heat map view of all areas affected by COVID on your selected state. You can also change the display of your heat map. </p>
-                      <p>3. View your results! The stat results will display on the right under "Stat results".</p>
+                      <h5>1. To start, select a state under <b><u>Get Heat Map!</u></b> Once a state is selected, a terrain view of that state will display on the map below.</h5>
+                      <h5>2. Then press the <b><u>Toggle Map</u></b> button to get a heat map view of all areas affected by COVID on your selected state. You can then alter the display of your heat map using the other buttons. </h5>
+                      <h5>3. View your results! The stat results will display on the right under "Stat results".</h5>
                       
                   </div>
 
@@ -39,7 +43,7 @@
 
             <div class = "col-8">
                 <div class="card">
-                    <h5 class = "card-title">Get Heat Map!</h5>
+                    <h4 class = "card-title"> <b><u>Get Heat Map!</u></b><h4>
 
                   <div class="card-body">
 
@@ -57,31 +61,37 @@
                     
                     <div id="map"></div>
                     <br>
-                    <div id="floating-panel">
+                    <div class ="btn-group">
                         <button onclick="toggleHeatmap()">Toggle Heatmap</button>
+                        
                         <button onclick="changeGradient()">Change gradient</button>
+                        
                         <button onclick="changeRadius()">Change radius</button>
+                        
                         <button onclick="changeOpacity()">Change opacity</button>
+                        
                     </div>
-                 </div>
-                </div>
-            </div>
-        </div>
+                    
+                    
 
-        <div class = "row">
-
-            <div class = "col-12">
-               <div class = "card">
-                <div id="stats"><h5>Stats:</h5>
                 </div>
                 
-                <div id = "global-stats"></div>
-               </div> 
             </div>
-
-
+            <br>
         </div>
+       
+       <div class = "col-12">
+                <div class = "card">
+                 <div id="stats"><h4><b><u>Stats:</u></b></h4>
+                 </div>
+                 
+                 <div id = "global-stats"></div>
+                </div> 
+                <br>
+        </div>
+            
     </div>
+    
 
 
 
