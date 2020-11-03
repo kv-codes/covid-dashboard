@@ -18,13 +18,13 @@ const renderDropdown = () => {
 
 }
 
-
-
 renderDropdown()
-// renders the stats 
+
+
+// renders the stats for each state 
 document.querySelector('#states').addEventListener('change', (event) => {
 
-    //console.log(event.target.value)
+
     fetch('https://www.trackcorona.live/api/provinces')
         .then(response => response.json())
         .then(jsonData => {
@@ -47,6 +47,7 @@ document.querySelector('#states').addEventListener('change', (event) => {
         })
 })
 
+// renders the global data upon page load 
 let globalData = () => {
     fetch('https://www.trackcorona.live/api/countries')
         .then(response => response.json())
@@ -69,12 +70,7 @@ let globalData = () => {
 globalData()
 
 
-
-
-
-
-
-// this is the heat map
+// functionality for the map 
 
 let map, heatmap;
 
@@ -140,22 +136,22 @@ function changeOpacity() {
 
 
 
+// populates longitude and latitude for the heat map
 
 function getPoints() {
-    let emptyArray = []
+    let heatMapArray = []
     fetch("https://www.trackcorona.live/api/cities")
         .then(response => response.json())
         .then(data => data.data)
         .then(dataObject => dataObject.filter(data => data.country_code == "us"))
         .then(filtered => filtered.forEach(element => {
-            emptyArray.push({
+            heatMapArray.push({
                 location: new google.maps.LatLng(element.latitude, element.longitude),
                 weight: element.confirmed / 1000
             })
 
         }))
 
-    return emptyArray
+    return heatMapArray
 
 }
-
