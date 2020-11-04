@@ -1,21 +1,26 @@
+const getData = (urlVar) => {
+    return fetch(`https://www.trackcorona.live/api/${urlVar}`).then(response => {
+        if (response.status === 200) {
+            return response.json()
+        }
+    }).then(data => data.data)
+}
+
+
 // renders the drop down options for states
 
 const renderDropdown = () => {
-    fetch('https://www.trackcorona.live/api/provinces')
-        .then(response => response.json())
-        .then(jsonData => {
-            jsonData.data.forEach(function (state) {
-                if (state.country_code === 'us') {
-                    let statesDropdown = document.querySelector('#states')
-                    let newOption = document.createElement('option')
-                    newOption.setAttribute('value', state.location)
-                    newOption.innerHTML = state.location
-                    statesDropdown.appendChild(newOption)
-                }
-            })
-
+    getData('provinces').then(data => {
+        data.forEach(function (state) {
+            if (state.country_code === 'us') {
+                let statesDropdown = document.querySelector('#states')
+                let newOption = document.createElement('option')
+                newOption.setAttribute('value', state.location)
+                newOption.innerHTML = state.location
+                statesDropdown.appendChild(newOption)
+            }
         })
-
+    })
 }
 
 renderDropdown()
@@ -23,48 +28,37 @@ renderDropdown()
 
 // renders the stats for each state 
 document.querySelector('#states').addEventListener('change', (event) => {
+    getData('provinces').then(data => {
+        data.forEach(function (state) {
+            if (state.location === event.target.value) {
+                let statsDiv = document.querySelector('#stats')
+                initMap(state.latitude, state.longitude, 6)
+                statsDiv.innerHTML = `
+                Confirmed cases: ${state.confirmed}
+                Deceased: ${state.dead}
+                Last Updated: ${state.updated.split(' ')[0]}
+                `
+            }
 
-
-    fetch('https://www.trackcorona.live/api/provinces')
-        .then(response => response.json())
-        .then(jsonData => {
-
-            jsonData.data.forEach(function (state) {
-
-                if (state.location === event.target.value) {
-
-                    let statsDiv = document.querySelector('#stats')
-                    initMap(state.latitude, state.longitude, 6)
-
-                    statsDiv.innerHTML = `
-                    Confirmed cases: ${state.confirmed}
-                    Deceased: ${state.dead}
-                    Last Updated: ${state.updated.split(' ')[0]}
-                    `
-                }
-
-            })
         })
+    })
+
 })
 
 // renders the global data upon page load 
 let globalData = () => {
-    fetch('https://www.trackcorona.live/api/countries')
-        .then(response => response.json())
-        .then(jsonData => {
-            jsonData.data.forEach((country) => {
-                if (country.country_code === 'us') {
-                    let globalDiv = document.querySelector('#global-stats')
-                    globalDiv.innerHTML = `
-                        Total US Confirmed: ${country.confirmed}
-                        Total US Recovered: ${country.recovered}
-                        Total US deceased: ${country.dead}
-                
-                    `
-
-                }
-            })
+    getData('countries').then(data => {
+        data.forEach((country) => {
+            if (country.country_code === 'us') {
+                let globalDiv = document.querySelector('#global-stats')
+                globalDiv.innerHTML = `
+                    Total US Confirmed: ${country.confirmed}
+                    Total US Recovered: ${country.recovered}
+                    Total US deceased: ${country.dead}
+                `
+            }
         })
+    })
 
 }
 globalData()
@@ -74,19 +68,14 @@ globalData()
 
 let map, heatmap;
 
-
 function initMap(lat = 37.0902, long = -95.7129, zoom = 4) {
     map = new google.maps.Map(document.getElementById("map"), {
         zoomControl: true,
-
-
         zoom: zoom,
-
         center: {
             lat: lat,
             lng: long
         },
-
         mapTypeId: "satellite",
     });
 
@@ -94,8 +83,6 @@ function initMap(lat = 37.0902, long = -95.7129, zoom = 4) {
         data: getPoints(),
         map: map,
     });
-
-
 }
 
 function toggleHeatmap() {
@@ -140,16 +127,14 @@ function changeOpacity() {
 
 function getPoints() {
     let heatMapArray = []
-    fetch("https://www.trackcorona.live/api/cities")
-        .then(response => response.json())
-        .then(data => data.data)
-        .then(dataObject => dataObject.filter(data => data.country_code == "us"))
+    getData('cities').then(data => {
+            return data.filter(data => data.country_code == "us")
+        })
         .then(filtered => filtered.forEach(element => {
             heatMapArray.push({
                 location: new google.maps.LatLng(element.latitude, element.longitude),
                 weight: element.confirmed / 1000
             })
-
         }))
 
     return heatMapArray
