@@ -23,9 +23,9 @@ The first API we used was trackcorona.live/api, which gave us access to current 
 
 The second API we used was the the Google Maps API to display the heat map. This allowed us to input longitude and latitude data from trackcorona.live to update the map in real time. 
 
-Links: 
-https://developers.google.com/maps/documentation/javascript/overview
-https://www.trackcorona.live/api
+API Links: 
+* https://developers.google.com/maps/documentation/javascript/overview
+* https://www.trackcorona.live/api
 
 
 CREATED BY
