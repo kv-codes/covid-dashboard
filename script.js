@@ -1,9 +1,10 @@
-const getData = (urlVar) => {
-    return fetch(`https://www.trackcorona.live/api/${urlVar}`).then(response => {
-        if (response.status === 200) {
-            return response.json()
-        }
-    }).then(data => data.data)
+// fetches data from the api
+const getData = async (endPoint) => {
+    const response = await fetch(`https://www.trackcorona.live/api/${endPoint}`)
+    if (response.status === 200) {
+        const data = await response.json()
+        return data.data
+    }
 }
 
 
