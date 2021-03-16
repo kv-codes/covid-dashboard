@@ -5,6 +5,7 @@ TABLE OF CONTENTS
 
  * Introduction
  * APIs 
+ * Screenshots
  * Credit
 
 
@@ -26,6 +27,10 @@ The second API we used was the the Google Maps API to display the heat map. This
 API Links: 
 * https://developers.google.com/maps/documentation/javascript/overview
 * https://www.trackcorona.live/api
+
+SCREENSHOTS
+-----------
+
 
 
 CREATED BY
