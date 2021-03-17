@@ -30,7 +30,17 @@ API Links:
 
 SCREENSHOTS
 -----------
+The welcome page:
+<img src="https://github.com/kv-codes/covid-dashboard/blob/backup/CovidDash-Welcome.png" width="100" height="100">
 
+Select by state toggle bar:
+<img src="https://github.com/kv-codes/covid-dashboard/blob/backup/CovidDash-f1.png" width="100" height="100">
+
+Satellite feature on map:
+<img src="https://github.com/kv-codes/covid-dashboard/blob/backup/CovidDash-f2.png" width="100" height="100">
+
+Population displayed through heat map:
+<img src="https://github.com/kv-codes/covid-dashboard/blob/backup/CovidDash-f3.png" width="100" height="100">
 
 
 CREATED BY
